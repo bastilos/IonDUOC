@@ -1,0 +1,7 @@
+{
+  "name": "IonDUOC",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
