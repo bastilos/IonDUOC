@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title #titulo class="ion-text-left ion-text">
+      <img class="logo-header" src=..\assets\img\logo-duoc.png alt="Duoc UC">
+
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding-horizontal">
+  <form>
+    <ion-item>
+      <ion-input name="nombre" label="Nombre" labelPlacement="floating" type="text" 
+        [(ngModel)]="usuario.nombre" 
+        required></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-input name="apellido" label="Apellido" labelPlacement="floating" type="text"
+        [(ngModel)]="usuario.apellido" 
+        required></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-select name="nivelEducacional" label="Educación" labelPlacement="floating"
+          [(ngModel)]="usuario.nivelEducacional.id">
+        <ion-select-option *ngFor="let nivelEducacional of nivelesEducacionales" 
+          [value]="nivelEducacional.id">
+            {{nivelEducacional.nombre}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>        
+  
+    <ion-item>
+      <ion-input name="fechaNacimiento" label="Fecha nacimiento" labelPlacement="floating" type="date" 
+        [(ngModel)]="usuario.fechaNacimiento">
+      </ion-input>
+    </ion-item>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <ion-button shape="block" (click)="limpiarFormulario()">
+            Limpiar
+          </ion-button>
+        </ion-col>
+        <ion-col col-4>
+          <ion-button shape="block" (click)="mostrarDatosusuario()">
+            Mostrar Datos
+          </ion-button>
+        </ion-col>
+        <ion-col col-4>
+          <ion-button shape="block" (click)="actualizarDatos()">
+            Actualizar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

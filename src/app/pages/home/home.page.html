@@ -1,0 +1,96 @@
+<!-- Comienza el Header -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title #titulo class="ion-text-left ion-text">
+      <img class="logo-header" src=..\assets\img\logo-duoc.png alt="Duoc UC">
+
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- Termina el Header -->
+
+<!-- Comienza el Content -->
+<ion-content [fullscreen]="true" class="ion-padding-horizontal">
+  <ion-title class="ion-padding-top">
+    <ion-label>
+      <h1 class="ion-text-center">¡Bienvenido!</h1>
+      <!-- {{interpolacion}} 
+          Permite mostrar los datos desde el script a la visual
+          verificar el data en el home.page.ts
+        -->
+      <p *ngIf="usuario">Usuario: {{ usuario.nombre }}</p>
+    </ion-label>
+  </ion-title>
+  <b class="ion-text-center">
+    <h4>Información Adicional</h4>
+  </b>
+
+  <ion-item>
+    <ion-label position="floating" >Nombre</ion-label>
+    <ion-input type="text" class="ion-text-right" [(ngModel)]="persona.nombre" readonly></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating">Apellidos</ion-label>
+    <ion-input type="text" class="ion-text-right" [(ngModel)]="persona.apellido" readonly></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>Educación</ion-label>
+    <ion-select placeholder="Seleccione nivel" [(ngModel)]="persona.nivelEducacional.id">
+      <ion-select-option *ngFor="let nivelEducacional of nivelesEducacionales" [value]="nivelEducacional.id">
+        {{ nivelEducacional.nombre }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  
+  <ion-item>
+    <ion-label position="floating">Fecha Nacimiento</ion-label>
+    <ion-input type="date" class="ion-text-right" [(ngModel)]="persona.fechaNacimiento" ></ion-input>
+  </ion-item>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <ion-button shape="block" (click)="limpiarFormulario()">
+          Limpiar
+        </ion-button>
+      </ion-col>
+      <ion-col col-6>
+        <ion-button shape="block" (click)="mostrarDatosPersona()">
+          Mostrar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<!-- Termina el Content -->
+
+<!-- Comienza el Footer -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="qr" routerLink="/qr" routerLinkActive="active-tab">
+          <ion-icon name="logo-apple-ar"></ion-icon>
+          QR
+        </ion-tab-button>
+        <ion-tab-button tab="miClass" routerLink="/miClass" routerLinkActive="active-tab">
+          <ion-icon name="desktop-outline"></ion-icon>
+          miClass
+        </ion-tab-button>
+        <ion-tab-button tab="miDatos" routerLink="/miDatos" routerLinkActive="active-tab">
+          <ion-icon name="cog-outline"></ion-icon>
+          <ion-label>Mis Datos</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="opc4" routerLink="/opc4" routerLinkActive="active-tab">
+          <ion-icon name="id-card-outline"></ion-icon>
+          Asistencia
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
+<!-- Termina el Footer -->

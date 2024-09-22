@@ -1,0 +1,50 @@
+ion-content{
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  --padding-end: 20px;
+  --padding-start: 20px;
+  --background: #ffffff;
+}
+ion-item{
+  --padding-bottom: 10px;
+  --background: #f0f0f0; 
+  color: #000000; 
+}
+
+ion-card {
+  --background: #fafafa; 
+  color: #000000; 
+}
+
+ion-card-title,
+ion-card-content,
+ion-label,
+p,
+h2 {
+  color: #000000; 
+}
+
+ion-item ion-input {
+  --background: ; /* Light blue color for input fields */
+  color: #000000; /* Text inside input fields should be black */
+}
+
+ion-input {
+  background: #e0f7fa; /* Apply the light blue background directly */
+  color: #000000; /* Ensure text is black for readability */
+  padding: 8px; /* Optional: add padding for better spacing */
+  border-radius: 4px; /* Optional: add rounded corners */
+}
+
+.background-image {
+  position: absolute; /* Asegúrate de que esté detrás del contenido */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../../assets/img/illustration.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* Asegúrate de que esté detrás */
+}
