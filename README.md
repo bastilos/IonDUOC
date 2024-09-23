@@ -1,6 +1,6 @@
-Collaborate
-  Zichao Yuan
-  Saul Vegas
-  Francisca Otarola
-  Bastian Cabezas
-  Joaquin
+Integrantes:
+  002D SAUL VEGA PENA
+  002D ZICHAO YUAN
+  003D JOAQUIN RODRIGUEZ PEREZ
+  001D FRANCISCA OTAROLA GODOY
+  001D BASTIAN CABEZAS VILLA
