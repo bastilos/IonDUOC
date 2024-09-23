@@ -4,7 +4,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 50%; 
   transform: translateY(-50%);
 }
 
@@ -26,3 +26,19 @@
 #container a {
   text-decoration: none;
 }
+
+.form-container {
+  background-color: #F1B634; /* Fondo blanco semitransparente */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  margin: 20px auto; /* Margen automático para centrar */
+  max-width: 600px; /* Ancho máximo del contenedor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+.background-image {
+    background-image: url('../../../assets/img/sede-vinadelmar.jpg');
+    background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+  }

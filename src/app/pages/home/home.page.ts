@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonicSafeString } from '@ionic/angular';
 import { Usuario } from 'src/app/model/usuario';
 import { NivelEducacional } from 'src/app/model/nivel-educacional';
 import { Persona } from 'src/app/model/persona';
-import { UserService } from 'src/app/services/user.service'; 
+import { UserService } from 'src/app/services/user.service';
+import { AnimationController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+
 
 
 
@@ -14,8 +17,10 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['home.page.scss'],
 })
 
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, AfterViewInit {
 
+  @ViewChild('titulo', { read: ElementRef }) itemTitulo!: ElementRef;
+  
   public usuario: Usuario = new Usuario('', '', '', '', '', '');
 
   public nivelesEducacionales: NivelEducacional[] = new NivelEducacional().getNivelesEducacionales();
@@ -38,7 +43,9 @@ export class HomePage implements OnInit {
         private activeroute: ActivatedRoute
       , private router: Router
       , private alertController: AlertController,
-        private userService: UserService
+        private userService: UserService,
+        private loadingController: LoadingController,
+        private animationController: AnimationController
       ) {
 
         this.activeroute.queryParams.subscribe(params => {
@@ -70,6 +77,19 @@ export class HomePage implements OnInit {
         this.router.navigate(['/login']);
       }
   });
+}
+
+ngAfterViewInit(): void {
+  if (this.itemTitulo) {
+    const animation = this.animationController
+      .create()
+      .addElement(this.itemTitulo.nativeElement)
+      .iterations(Infinity)
+      .duration(6000)
+      .fromTo('transform', 'translate(0%)', 'translate(100%)')
+      .fromTo('opacity', 0.2, 1);
+    animation.play();
+  }
 }
 
 public ngOnInit() {

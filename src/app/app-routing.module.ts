@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MisDatosComponent } from './components/mis-datos/mis-datos.component';
+import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,14 @@ const routes: Routes = [
     path: 'miDatos',
     component: MisDatosComponent
   },
+  {
+    path: 'qr',
+    loadChildren: () => import('./pages/qr/qr.module').then( m => m.QrPageModule)
+  },
+  {
+    path: 'asistencia',
+    component: AsistenciaComponent
+  }
 
 ];
 

@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 //import { Persona } from 'src/app/model/persona';
 import { NivelEducacional } from 'src/app/model/nivel-educacional';
 import { Usuario } from 'src/app/model/usuario';
 import { UserService } from 'src/app/services/user.service';
+import { AnimationController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mis-datos',
   templateUrl: './mis-datos.component.html',
   styleUrls: ['./mis-datos.component.scss']
 })
-export class MisDatosComponent {
+export class MisDatosComponent implements OnInit, AfterViewInit{
   
-  public usuario: Usuario = new Usuario('', '', '', '', '', '');
+  @ViewChild('titulo', { read: ElementRef }) itemTitulo!: ElementRef; public usuario: Usuario = new Usuario('', '', '', '', '', '');
 
   fechaNacimiento: string = '';
   idNivelEducacional: number = 0;
@@ -32,10 +34,22 @@ export class MisDatosComponent {
   }
   
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private loadingController: LoadingController,
+    private animationController: AnimationController) {}
 
-  
-  
+  ngAfterViewInit(): void {
+    if (this.itemTitulo) {
+      const animation = this.animationController
+        .create()
+        .addElement(this.itemTitulo.nativeElement)
+        .iterations(Infinity)
+        .duration(6000)
+        .fromTo('transform', 'translate(0%)', 'translate(100%)')
+        .fromTo('opacity', 0.2, 1);
+      animation.play();
+    }
+  }
+
   cargarNivelesEducacionales() {
     this.nivelesEducacionales = new NivelEducacional().getNivelesEducacionales();
   }

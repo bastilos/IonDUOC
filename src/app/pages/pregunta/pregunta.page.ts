@@ -1,20 +1,24 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario';
-import { Component, OnInit } from '@angular/core';
-
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { AnimationController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-pregunta',
   templateUrl: './pregunta.page.html',
   styleUrls: ['./pregunta.page.scss'],
 })
 export class PreguntaPage implements OnInit {
+  @ViewChild('titulo', { read: ElementRef }) itemTitulo!: ElementRef;
 
   public usuario?: Usuario; // Propiedad opcional para evitar error de inicialización
   public respuesta: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController,
+    private animationController: AnimationController
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       const navigation = this.router.getCurrentNavigation();
@@ -24,6 +28,19 @@ export class PreguntaPage implements OnInit {
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.itemTitulo) {
+      const animation = this.animationController
+        .create()
+        .addElement(this.itemTitulo.nativeElement)
+        .iterations(Infinity)
+        .duration(6000)
+        .fromTo('transform', 'translate(0%)', 'translate(100%)')
+        .fromTo('opacity', 0.2, 1);
+      animation.play();
+    }
   }
 
   ngOnInit() { }
