@@ -31,26 +31,34 @@ h2 {
 }
 
 ion-item ion-input {
-  --background: ; /* Light blue color for input fields */
-  color: #000000; /* Text inside input fields should be black */
+  --background: ; 
+  color: #000000; 
 }
 
 ion-input {
-  background: transparent; /* Apply the light blue background directly */
-  color: #000000; /* Ensure text is black for readability */
-  padding: 8px; /* Optional: add padding for better spacing */
-  border-radius: 4px; /* Optional: add rounded corners */
+  background: transparent; 
+  color: #000000;
+  padding: 8px; 
+  border-radius: 4px; 
 }
-
+// css de fondo pantalla
 .background-image {
-  position: absolute; /* Asegúrate de que esté detrás del contenido */
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../../../assets/img/illustration.jpg');
+  background-image: url('../../../assets/img/maipu.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: -1; /* Asegúrate de que esté detrás */
+  z-index: -1; 
+}
+
+// vista fondoen dispositivos movil
+@media only screen and (max-width: 480px) {
+  .background-image {
+    background-size: 200%;
+    background-position: center -210px;
+  }
 }
