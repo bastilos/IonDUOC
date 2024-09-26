@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="asistencia">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ asistencia.nombreAsignatura }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Profesor: {{ asistencia.nombreProfesor }}</p>
+      <p>Bloque Inicio: {{ asistencia.bloqueInicio }}</p>
+      <p>Bloque Termino: {{ asistencia.bloqueTermino }}</p>
+      <p>Sección: {{ asistencia.seccion }}</p>
+      <p>Sede: {{ asistencia.sede }}</p>
+      <p>Hora Inicio: {{ asistencia.horaInicio }}</p>
+      <p>Hora Fin: {{ asistencia.horaFin }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -55,7 +55,7 @@ public datosQR = '';
       , private alertController: AlertController,
         private userService: UserService,
         private loadingController: LoadingController,
-        private animationController: AnimationController
+        private animationController: AnimationController,
       ) {
 
         this.activeroute.queryParams.subscribe(params => {
@@ -162,7 +162,9 @@ ngOnInit(): void {
     if (qrCode) {
       this.escaneando = false;
       this.datosQR = qrCode.data;
+      console.log("Datos QR escaneados: ", this.datosQR); // Depura aquí
     }
+    
 
     return this.datosQR !== '';
   }
