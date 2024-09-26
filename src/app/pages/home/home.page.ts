@@ -7,6 +7,8 @@ import { Persona } from 'src/app/model/persona';
 import { UserService } from 'src/app/services/user.service';
 import { AnimationController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import jsQR, { QRCode } from 'jsqr';
+
 
 
 
@@ -21,6 +23,13 @@ import { LoadingController } from '@ionic/angular';
 export class HomePage implements OnInit, AfterViewInit {
 
   @ViewChild('titulo', { read: ElementRef }) itemTitulo!: ElementRef;
+  @ViewChild('video') video!: ElementRef<HTMLVideoElement>;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('fileinput') fileinput!: ElementRef<HTMLInputElement>;
+
+public loading: HTMLIonLoadingElement | null = null;
+public escaneando = false;
+public datosQR = '';
   
   public usuario: Usuario = new Usuario('', '', '', '', '', '');
 
@@ -93,54 +102,9 @@ ngAfterViewInit(): void {
   }
 }
 
-public ngOnInit() {
-  if (this.usuario) {
-    this.persona.nombre = this.usuario.nombre;
-    this.persona.apellido = this.usuario.apellido;
-    this.persona.fechaNacimiento = this.usuario.fechaNacimiento;
-    this.persona.nivelEducacional = this.usuario.nivelEducacional; 
-  }
+ngOnInit(): void {
+  this.comenzarEscaneoQR();
 }
-
-public limpiarFormulario(): void {
-  /*
-    El método limpiar recorre cada uno de los campos de la propiedad persona,
-    de modo que la variable "key" va tomando el nombre de dichos campos (nombre,
-    apellido, etc.) y "value" adopta el valor que tiene en ese momento el
-    campo asociado a key.
-  */
-  for (const [key, value] of Object.entries(this.persona)) {
-    /*
-      Con la siguiente instrucción se cambia el valor de cada campo
-      de la propiedad persona, y como los controles gráficos están
-      asociados a dichos nombres de campos a través de ngModel, entonces
-      al limpiar el valor del campo, también se limpia el control gráfico.
-    */
-      Object.defineProperty(this.persona, key, {value: ''});
-    }
-    this.persona.nivelEducacional = new NivelEducacional();
-  }
-
- 
-  public mostrarDatosPersona(): void {
-    if (this.usuario) {
-      this.persona.nombre = this.usuario.nombre;
-      this.persona.apellido = this.usuario.apellido;
-      this.persona.fechaNacimiento = this.usuario.fechaNacimiento;
-      this.persona.nivelEducacional = this.usuario.nivelEducacional;
-    } else {
-      console.log('No hay usuario cargado.');
-    }
-
-    // Mostrar un mensaje emergente con los datos de la persona
-    let mensaje = '<br><b>Usuario:</b> ' + this.usuario.correo;
-    mensaje += '<br><b>Nombre:</b> ' + this.persona.nombre;
-    mensaje += '<br><b>Apellido:</b> ' + this.persona.apellido;
-    mensaje += '<br><b>Educación:</b> ' + this.persona.getTextoNivelEducacional();
-    mensaje += '<br><b>Nacimiento:</b> ' + this.persona.getTextoFechaNacimiento();
-
-    this.presentAlert('Datos personales', mensaje);
-  }
 
   // Este método sirve para mostrar el mensaje emergente
   public async presentAlert(titulo: string, mensaje: string) {
@@ -153,26 +117,95 @@ public limpiarFormulario(): void {
 
     await alert.present();
   }
-  public actualizarDatos(): void {
-    if (this.usuario) {
-      const usuarioActualizado = new Usuario(
-        this.usuario.correo,
-        this.usuario.password,
-        this.persona.nombre,
-        this.persona.apellido,
-        this.usuario.preguntaSecreta,
-        this.usuario.respuestaSecreta,
-        this.persona.nivelEducacional,
-        this.persona.fechaNacimiento
-      );
-  
-      const actualizado = this.userService.actualizarUsuario(usuarioActualizado);
-  
-      if (actualizado) {
-        this.presentAlert('Actualización', 'Los datos han sido actualizados correctamente.');
-      } else {
-        this.presentAlert('Error', 'No se pudo actualizar el usuario.');
+  public limpiarDatos(): void {
+    this.escaneando = false;
+    this.datosQR = '';
+    this.loading = null;
+    (document.getElementById('input-file') as HTMLInputElement).value = '';
+  }
+
+  public async comenzarEscaneoQR() {
+    this.limpiarDatos();
+    const mediaProvider = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' }
+    });
+    this.video.nativeElement.srcObject = mediaProvider;
+    this.video.nativeElement.setAttribute('playsinline', 'true');
+    this.loading = await this.loadingController.create({});
+    await this.loading.present();
+    this.video.nativeElement.play();
+    requestAnimationFrame(this.verificarVideo.bind(this));
+  }
+
+  public obtenerDatosQR(source?: CanvasImageSource): boolean {
+    let w = 0;
+    let h = 0;
+
+    if (!source) {
+      this.canvas.nativeElement.width = this.video.nativeElement.videoWidth;
+      this.canvas.nativeElement.height = this.video.nativeElement.videoHeight;
+    }
+
+    w = this.canvas.nativeElement.width;
+    h = this.canvas.nativeElement.height;
+    const context = this.canvas.nativeElement.getContext('2d');
+
+    if (!context) {
+      console.error('No se pudo obtener el contexto del canvas.');
+      return false;
+    }
+
+    context.drawImage(source ? source : this.video.nativeElement, 0, 0, w, h);
+    const img: ImageData = context.getImageData(0, 0, w, h);
+    const qrCode: QRCode | null = jsQR(img.data, img.width, img.height, { inversionAttempts: 'dontInvert' });
+
+    if (qrCode) {
+      this.escaneando = false;
+      this.datosQR = qrCode.data;
+    }
+
+    return this.datosQR !== '';
+  }
+
+  async verificarVideo() {
+    if (this.video.nativeElement.readyState === this.video.nativeElement.HAVE_ENOUGH_DATA) {
+      if (this.loading) {
+        await this.loading.dismiss();
+        this.loading = null;
+        this.escaneando = true;
       }
+      if (this.obtenerDatosQR()) {
+        console.log(1);
+      } else {
+        if (this.escaneando) {
+          console.log(2);
+          requestAnimationFrame(this.verificarVideo.bind(this));
+        }
+      }
+    } else {
+      console.log(3);
+      requestAnimationFrame(this.verificarVideo.bind(this));
+    }
+  }
+
+  public detenerEscaneoQR(): void {
+    this.escaneando = false;
+  }
+
+  public cargarImagenDesdeArchivo(): void {
+    this.limpiarDatos();
+    this.fileinput.nativeElement.click();
+  }
+
+  public verificarArchivoConQR(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const img = new Image();
+      img.onload = () => {
+        this.obtenerDatosQR(img);
+      };
+      img.src = URL.createObjectURL(file);
     }
   }
 }

@@ -13,6 +13,12 @@
   <form>
     <h2 class="ion-text-center"> Mis Datos </h2>
     <ion-item>
+      <ion-input name="cuenta" label="Cuenta" labelPlacement="floating" type="text" 
+        [(ngModel)]="usuario.nombre" 
+        required></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-input name="nombre" label="Nombre" labelPlacement="floating" type="text" 
         [(ngModel)]="usuario.nombre" 
         required></ion-input>
@@ -23,7 +29,25 @@
         [(ngModel)]="usuario.apellido" 
         required></ion-input>
     </ion-item>
-  
+
+    <ion-item>
+      <ion-input name="correo" label="Correo" labelPlacement="floating" type="text"
+        [(ngModel)]="usuario.correo" 
+        required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input name="preguntaSecreta" label="Pregunta Secreta" labelPlacement="floating" type="text"
+        [(ngModel)]="usuario.preguntaSecreta" 
+        required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input name="respuestaSecreta" label="Respuesta Secreta" labelPlacement="floating" type="text"
+        [(ngModel)]="usuario.respuestaSecreta" 
+        required></ion-input>
+    </ion-item>
+
     <ion-item>
       <ion-select name="nivelEducacional" label="Educación" labelPlacement="floating"
           [(ngModel)]="usuario.nivelEducacional.id">
