@@ -1,9 +1,10 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario';
 import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-pregunta',
@@ -50,17 +51,21 @@ export class PreguntaPage implements OnInit {
 
   public validarRespuestaSecreta(): void {
     if (this.usuario && this.usuario.respuestaSecreta === this.respuesta) {
-      this.mostrarMensaje('CORRECTO!!! TU CLAVE ES ' + this.usuario.password);
+      // Navegar a la página 'correcto' y pasar la clave
+      const navigationExtras: NavigationExtras = {
+        state: {
+          mensaje: 'Tu contraseña es ' + this.usuario.password
+        }
+      };
+      this.router.navigate(['/correcto'], navigationExtras);
     } else {
-      this.mostrarMensaje('INCORRECTO!!!');
+      // Navegar a la página 'incorrecto' y pasar un mensaje de error
+      const navigationExtras: NavigationExtras = {
+        state: {
+          mensaje: '¡Lo sentimos Pero los datos ingresados no son correctos!'
+        }
+      };
+      this.router.navigate(['/incorrecto'], navigationExtras);
     }
-  }
-  async mostrarMensaje(mensaje: string, duracion?: number) {
-    const toast = await this.toastController.create({
-        message: mensaje,
-        duration: duracion? duracion: 2000,
-        position: 'top'
-      });
-    toast.present();
   }
 }

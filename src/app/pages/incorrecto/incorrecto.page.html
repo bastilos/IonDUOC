@@ -1,13 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>incorrecto</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-left">
+      <img class="logo-header" src="../assets/img/logo-duoc.png" alt="Duoc UC">
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding-horizontal background-image">
+  <ion-card class="ion-text-center ion-padding-vertical">
+    <ion-card-title>
+      <h2>Sistema de Asistencia DUOC</h2>
+    </ion-card-title>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">incorrecto</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <!-- Contenedor para la imagen y el mensaje -->
+    <div class="custom-image-container">
+      <img src="../assets/img/2.jpg" alt="Imagen personalizada" class="custom-image">
+      <p class="overlay-text">{{ mensaje }}</p>
+    </div>
+  </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-left">
+      <!-- Contenido adicional si es necesario -->
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
