@@ -3,6 +3,8 @@ import { Usuario } from 'src/app/model/usuario';
 import { Router, NavigationExtras } from '@angular/router';
 import { AnimationController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-correo',
@@ -18,7 +20,8 @@ export class CorreoPage implements OnInit {
 
   constructor(private router: Router,
     private loadingController: LoadingController,
-    private animationController: AnimationController) { }
+    private animationController: AnimationController,
+    private toastController: ToastController) { }
 
     ngAfterViewInit(): void {
       if (this.itemTitulo) {
@@ -37,7 +40,7 @@ export class CorreoPage implements OnInit {
   public ingresarPaginaValidarRespuestaSecreta(): void {
     const usuarioEncontrado = Usuario.buscarUsuarioPorCorreo(this.correo);
     if (!usuarioEncontrado) {
-      alert('EL CORREO NO EXISTE DENTRO DE LAS CUENTAS VALIDAS DEL SISTEMA');
+      this.mostrarMensaje('EL CORREO NO EXISTE DENTRO DE LAS CUENTAS VALIDAS DEL SISTEMA');
     } else {
       console.log('Usuario encontrado:', usuarioEncontrado);
       const navigationExtras: NavigationExtras = {
@@ -47,6 +50,15 @@ export class CorreoPage implements OnInit {
       };
       this.router.navigate(['/pregunta'], navigationExtras);
     }
+  }
+
+  async mostrarMensaje(mensaje: string, duracion?: number) {
+    const toast = await this.toastController.create({
+        message: mensaje,
+        duration: duracion? duracion: 2000,
+        position: 'top'
+      });
+    toast.present();
   }
 }
  
