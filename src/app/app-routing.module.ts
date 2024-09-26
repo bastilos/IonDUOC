@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MisDatosComponent } from './components/mis-datos/mis-datos.component';
-import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 
 
 const routes: Routes = [
@@ -31,17 +30,14 @@ const routes: Routes = [
     component: MisDatosComponent
   },
   {
-    path: 'asistencia',
-    component: AsistenciaComponent
-  },
-  {
     path: 'correcto',
     loadChildren: () => import('./pages/correcto/correcto.module').then( m => m.CorrectoPageModule)
   },
   {
     path: 'incorrecto',
     loadChildren: () => import('./pages/incorrecto/incorrecto.module').then( m => m.IncorrectoPageModule)
-  },  {
+  },
+  {
     path: 'miclase',
     loadChildren: () => import('./pages/miclase/miclase.module').then( m => m.MiclasePageModule)
   }

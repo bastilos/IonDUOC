@@ -1,15 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Asistencia</ion-title>
+    <ion-title #titulo class="front-size-19">
+      <img class="logo-header" src="../assets/img/logo-duoc.png" alt="Duoc UC">
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="asistencia">
-  <ion-card>
+  <ion-card class="center-card">
     <ion-card-header>
       <ion-card-title>{{ asistencia.nombreAsignatura }}</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content class="center-content">
       <p>Profesor: {{ asistencia.nombreProfesor }}</p>
       <p>Bloque Inicio: {{ asistencia.bloqueInicio }}</p>
       <p>Bloque Termino: {{ asistencia.bloqueTermino }}</p>
@@ -20,3 +22,22 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<!-- Comienza el Footer -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="miDatos" routerLink="/miDatos" routerLinkActive="active-tab">
+          <ion-icon name="cog-outline"></ion-icon>
+          <ion-label>Mis Datos</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="home" routerLink="/home" routerLinkActive="active-tab">
+          <ion-icon name="planet-outline"></ion-icon>
+          Inicio
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
+<!-- Termina el Footer -->

@@ -1,0 +1,22 @@
+ion-content {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100%; /* Asegúrate de que el contenido ocupa toda la altura */
+  }
+  
+  .center-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar el contenido dentro de la tarjeta */
+    text-align: center; /* Alinear el texto al centro */
+    margin: 20px; /* Espaciado adicional */
+    background-color: grey;
+  }
+  
+  .center-content {
+    display: flex;
+    flex-direction: column; /* Asegurar que el contenido es en columna */
+    align-items: center; /* Centrar el texto dentro de la tarjeta */
+  }
+  

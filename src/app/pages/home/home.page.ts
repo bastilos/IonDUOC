@@ -8,18 +8,13 @@ import { UserService } from 'src/app/services/user.service';
 import { AnimationController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import jsQR, { QRCode } from 'jsqr';
-
-
-
-
-
+import { AsistenciaService, Asistencia } from '../../services/asistencia.service'; // Importa el servicio
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-
 export class HomePage implements OnInit, AfterViewInit {
 
   @ViewChild('titulo', { read: ElementRef }) itemTitulo!: ElementRef;
@@ -27,96 +22,61 @@ export class HomePage implements OnInit, AfterViewInit {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('fileinput') fileinput!: ElementRef<HTMLInputElement>;
 
-public loading: HTMLIonLoadingElement | null = null;
-public escaneando = false;
-public datosQR = '';
+  public loading: HTMLIonLoadingElement | null = null;
+  public escaneando = false;
+  public datosQR = '';
   
   public usuario: Usuario = new Usuario('', '', '', '', '', '');
-
   public nivelesEducacionales: NivelEducacional[] = new NivelEducacional().getNivelesEducacionales();
-
   public persona: Persona = new Persona();
 
- 
-  /*
-    En el constructor del HomePage se ponen como parametros los siguientes objetos:
-      (1) activeroute (del tipo de dato ActivatedRoute) y router (del tipo de dato Router),
-      que se usarán para obtener los datos enviados por la página que invocó a "home".
-      (2) alertController (del tipo de dato AlertController), que se usará para mostrar
-      mensajes emergentes en la pantalla.
-
-    Nótese que los parámetros tuvieron que declararse con "private", y esto es necesario
-    para que los parámetros pasen a considerarse automáticamente como propiedades
-    de la clase "HomePage" y de este modo puedan usarse dentro de los otros métodos.
-   */
-   constructor(
-        private activeroute: ActivatedRoute
-      , private router: Router
-      , private alertController: AlertController,
-        private userService: UserService,
-        private loadingController: LoadingController,
-        private animationController: AnimationController,
-      ) {
-
-        this.activeroute.queryParams.subscribe(params => {
-          const navigation = this.router.getCurrentNavigation();
-          if (navigation && navigation.extras.state) {
-            this.usuario = navigation.extras.state['usuario'];
-            this.userService.setUsuarioAutenticado(this.usuario); // Guarda el usuario en el servicio
-          } else {
-            this.router.navigate(['/login']);
-          }
-        });
-
-    // Se llama a la ruta activa y se obtienen sus parámetros mediante una subscripcion
-    this.activeroute.queryParams.subscribe(params => {       // Utilizamos expresión lambda
+  constructor(
+    private activeroute: ActivatedRoute,
+    private router: Router,
+    private alertController: AlertController,
+    private userService: UserService,
+    private loadingController: LoadingController,
+    private animationController: AnimationController,
+    private asistenciaService: AsistenciaService // Inyecta el servicio
+  ) {
+    // Tu lógica para la navegación
+    this.activeroute.queryParams.subscribe(params => {
       const navigation = this.router.getCurrentNavigation();
-      if (navigation) {
-        if (navigation.extras.state) { // Validar que tenga datos extras
-          // Si tiene datos extra, se rescatan y se asignan a una propiedad
-          this.usuario = navigation.extras.state['usuario'];
-        } else {
-          /*
-            Si no vienen datos extra desde la página anterior, quiere decir que el usuario
-            intentó entrar directamente a la página home sin pasar por el login,
-            de modo que el sistema debe enviarlo al login para que inicie sesión.
-          */
-          this.router.navigate(['/login']);
-        }
+      if (navigation && navigation.extras.state) {
+        this.usuario = navigation.extras.state['usuario'];
+        this.userService.setUsuarioAutenticado(this.usuario);
       } else {
         this.router.navigate(['/login']);
       }
-  });
-}
-
-ngAfterViewInit(): void {
-  if (this.itemTitulo) {
-    const animation = this.animationController
-      .create()
-      .addElement(this.itemTitulo.nativeElement)
-      .iterations(Infinity)
-      .duration(6000)
-      .fromTo('transform', 'translate(0%)', 'translate(100%)')
-      .fromTo('opacity', 0.2, 1);
-    animation.play();
+    });
   }
-}
 
-ngOnInit(): void {
-  this.comenzarEscaneoQR();
-}
+  ngAfterViewInit(): void {
+    if (this.itemTitulo) {
+      const animation = this.animationController
+        .create()
+        .addElement(this.itemTitulo.nativeElement)
+        .iterations(Infinity)
+        .duration(6000)
+        .fromTo('transform', 'translate(0%)', 'translate(100%)')
+        .fromTo('opacity', 0.2, 1);
+      animation.play();
+    }
+  }
 
-  // Este método sirve para mostrar el mensaje emergente
+  ngOnInit(): void {
+    this.comenzarEscaneoQR();
+  }
+
   public async presentAlert(titulo: string, mensaje: string) {
-
     const alert = await this.alertController.create({
       header: titulo,
       message: new IonicSafeString(mensaje),
       buttons: ['OK']
     });
-
     await alert.present();
   }
+
   public limpiarDatos(): void {
     this.escaneando = false;
     this.datosQR = '';
@@ -163,10 +123,23 @@ ngOnInit(): void {
       this.escaneando = false;
       this.datosQR = qrCode.data;
       console.log("Datos QR escaneados: ", this.datosQR); // Depura aquí
+
+      // Procesar los datos del QR y enviarlos al servicio
+      this.procesarDatosQR(this.datosQR);
     }
-    
 
     return this.datosQR !== '';
+  }
+
+  // Nuevo método para procesar los datos escaneados
+  private procesarDatosQR(datos: string) {
+    try {
+      const asistenciaData: Asistencia = JSON.parse(datos); // Asumiendo que el QR contiene un JSON
+      this.asistenciaService.setAsistencia(asistenciaData); // Enviar los datos al servicio
+    } catch (error) {
+      console.error('Error al procesar los datos del QR: ', error);
+      this.presentAlert('Error', 'Los datos del QR no son válidos.');
+    }
   }
 
   async verificarVideo() {
