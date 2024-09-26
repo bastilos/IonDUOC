@@ -4,43 +4,40 @@
   background-position: center; 
   background-repeat: no-repeat;
 }
-/* Agregar margen superior al ion-card para moverlo hacia abajo */
+
 ion-card {
   width: 90%;
   max-width: 500px;
-  margin: 50px auto; /* Centra el card y añade un margen superior */
+  margin: 50px auto; 
   position: relative;
   overflow: hidden;
 }
 
-/* Contenedor de la imagen */
 .custom-image-container {
   position: relative;
   width: 100%;
-  height: auto;
+  padding-top: 100%; 
+  overflow: hidden; 
 }
 
-/* Imagen */
 .custom-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; 
+  object-position: right center; 
   display: block;
 }
 
 .overlay-text {
   position: absolute;
-  top: 10px; /* Ajusta la distancia desde la parte superior */
-  right: 10px; /* Ajusta la distancia desde la derecha */
-  color: black;
-  font-size: 1.0rem; /* Ajusta el tamaño de la fuente según lo que necesites */
-  text-align: right;
-  max-width: 40%; /* Opcional: Limita el ancho del texto */
-  word-wrap: break-word; /* Permite que el texto se ajuste a la caja */
-}
-
-.title-card {
-  background-color: rgba(102, 102, 102, 0.5); //#666666 semi transparentado
-  margin: 10px;
-  border-radius: 20px;
+  top: 10px;
+  left: 10px;
   color: white;
+  font-size: 1.0rem;
+  text-align: left;
+  max-width: 40%;
+  word-wrap: break-word;
 }

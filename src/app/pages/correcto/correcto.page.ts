@@ -15,7 +15,7 @@ export class CorrectoPage implements OnInit, AfterViewInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private animationController: AnimationController // Inyección de AnimationController
+    private animationController: AnimationController 
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       const navigation = this.router.getCurrentNavigation();
@@ -27,7 +27,7 @@ export class CorrectoPage implements OnInit, AfterViewInit {
 
   ngOnInit() { }
 
-  ngAfterViewInit(): void { // Método correctamente definido dentro de la clase
+  ngAfterViewInit(): void { 
     if (this.itemTitulo) {
       const animation = this.animationController
         .create()
