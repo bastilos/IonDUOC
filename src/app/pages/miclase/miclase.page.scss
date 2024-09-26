@@ -11,7 +11,7 @@ ion-content {
     align-items: center; /* Centrar el contenido dentro de la tarjeta */
     text-align: center; /* Alinear el texto al centro */
     margin: 20px; /* Espaciado adicional */
-    background-color: grey;
+    background-color: #BDC601;
   }
   
   .center-content {
@@ -20,3 +20,6 @@ ion-content {
     align-items: center; /* Centrar el texto dentro de la tarjeta */
   }
   
+  .card-title-color {
+    color: #666666
+  }

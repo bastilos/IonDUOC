@@ -7,9 +7,11 @@
 </ion-header>
 
 <ion-content *ngIf="asistencia">
+  <br>
+  <h2 class="ion-text-center"> Datos de la asignatura </h2>
   <ion-card class="center-card">
     <ion-card-header>
-      <ion-card-title>{{ asistencia.nombreAsignatura }}</ion-card-title>
+      <ion-card-title class="card-title-color">{{ asistencia.nombreAsignatura }}</ion-card-title>
     </ion-card-header>
     <ion-card-content class="center-content">
       <p>Profesor: {{ asistencia.nombreProfesor }}</p>
@@ -28,6 +30,10 @@
   <ion-toolbar>
     <ion-tabs>
       <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="login" routerLink="/login" routerLinkActive="active-tab">
+          <ion-icon name="log-in-outline"></ion-icon>
+          Cerrar Sesión
+        </ion-tab-button>
         <ion-tab-button tab="miDatos" routerLink="/miDatos" routerLinkActive="active-tab">
           <ion-icon name="cog-outline"></ion-icon>
           <ion-label>Mis Datos</ion-label>
