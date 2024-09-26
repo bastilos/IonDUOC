@@ -3,6 +3,8 @@ import { Usuario } from 'src/app/model/usuario';
 import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+
 @Component({
   selector: 'app-pregunta',
   templateUrl: './pregunta.page.html',
@@ -18,7 +20,8 @@ export class PreguntaPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private loadingController: LoadingController,
-    private animationController: AnimationController
+    private animationController: AnimationController,
+    private toastController: ToastController
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       const navigation = this.router.getCurrentNavigation();
@@ -47,9 +50,17 @@ export class PreguntaPage implements OnInit {
 
   public validarRespuestaSecreta(): void {
     if (this.usuario && this.usuario.respuestaSecreta === this.respuesta) {
-      alert('CORRECTO!!! TU CLAVE ES ' + this.usuario.password);
+      this.mostrarMensaje('CORRECTO!!! TU CLAVE ES ' + this.usuario.password);
     } else {
-      alert('INCORRECTO!!!');
+      this.mostrarMensaje('INCORRECTO!!!');
     }
+  }
+  async mostrarMensaje(mensaje: string, duracion?: number) {
+    const toast = await this.toastController.create({
+        message: mensaje,
+        duration: duracion? duracion: 2000,
+        position: 'top'
+      });
+    toast.present();
   }
 }
