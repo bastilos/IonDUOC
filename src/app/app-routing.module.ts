@@ -31,10 +31,6 @@ const routes: Routes = [
     component: MisDatosComponent
   },
   {
-    path: 'qr',
-    loadChildren: () => import('./pages/qr/qr.module').then( m => m.QrPageModule)
-  },
-  {
     path: 'asistencia',
     component: AsistenciaComponent
   }
