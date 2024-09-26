@@ -9,9 +9,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding-horizontal background-image">
+  <div class="title-card">
+    <h2 class="ion-text-center"> mis Datos Personales </h2>
+  </div>
   <div class="form-container">
   <form>
-    <h2 class="ion-text-center"> Mis Datos </h2>
     <ion-item>
       <ion-input name="cuenta" label="Cuenta" labelPlacement="floating" type="text" 
         [(ngModel)]="nombreUsuario" 
