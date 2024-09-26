@@ -9,6 +9,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding-horizontal background-image">
+  <br>
+  <ion-title class="ion-text-center">
+    <h2 class="title-card">Sistema de Asistencia DUOC</h2>
+  </ion-title>
   <ion-card class="ion-text-center ion-padding-vertical">
     <h2>Recuperar contraseña</h2>
     <p>Paso 2: Responde la pregunta secreta</p>
@@ -18,17 +22,31 @@
     <ion-card-subtitle>{{ usuario?.preguntaSecreta || 'Pregunta no disponible' }}</ion-card-subtitle>    
     <ion-item>
       <ion-label position="floating">Ingresa tu respuesta</ion-label>
+      <br>
       <ion-input type="text" [(ngModel)]="respuesta" placeholder="Respuesta secreta"></ion-input>
     </ion-item>
-
-    <ion-button expand="full" (click)="validarRespuestaSecreta()">Validar respuesta</ion-button>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button expand="full" (click)="validarRespuestaSecreta()">Validar respuesta</ion-button>
+      </ion-col>
+    </ion-row>
   </ion-card>
+  <ion-label>
+    <br>
+    <div class="ion-text-center">
+      <a class="label-color" [routerLink]="['/login']">Iniciar Sesión</a>
+    </div>
+  </ion-label>
+
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-title class="ion-text-left ion-text">
-
+      <ion-tab-button tab="login" routerLink="/login" routerLinkActive="active-tab">
+        <ion-icon name="log-in-outline"></ion-icon>
+        Iniciar Sesión
+      </ion-tab-button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

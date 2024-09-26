@@ -98,6 +98,8 @@ export class MisDatosComponent implements OnInit, AfterViewInit{
     }
   }
   
-  
+  get nombreUsuario(): string {
+    return this.usuario.correo.split('@')[0]; // Devuelve la parte antes del '@'
+  }
 
 }

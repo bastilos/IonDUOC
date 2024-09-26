@@ -27,18 +27,18 @@
   text-decoration: none;
 }
 
-.form-container {
-  background-color: #F1B634; 
-  border-radius: 8px; 
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 600px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-}
 
 .background-image {
-    background-image: url('../../../assets/img/maipu.jpg');
+    background-image: url('../../../assets/img/inicio.jpg');
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
+  }
+
+  .header-card {
+    background-color: rgba(189, 198, 1, 0.7); //#BDC601 semi transparentado
+  }
+
+  .body-card {
+    background-color: rgba(102, 102, 102, 0.7); //#666666
   }

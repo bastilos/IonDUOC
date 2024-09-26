@@ -38,3 +38,9 @@ ion-card {
     word-wrap: break-word; /* Permite que el texto se ajuste a la caja */
   }
   
+  .title-card {
+    background-color: rgba(102, 102, 102, 0.5); //#666666 semi transparentado
+    margin: 10px;
+    border-radius: 20px;
+    color: white;
+  }

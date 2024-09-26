@@ -14,14 +14,13 @@
   </ion-title>
   
   <div class="ion-padding-vertical">
+    <ion-card-title class="ion-text-center">
+      <ion-label>
+        <h2 class="title-card">Sistema de Asistencia DUOC</h2>
+      </ion-label> 
+    </ion-card-title>
 
     <ion-card class="ion-text-center ion-padding-vertical">
-
-      <ion-card-title class="ion-text-center">
-        <ion-label>
-          <h2>Sistema de Asistencia DUOC</h2>
-        </ion-label> 
-      </ion-card-title>
 
       <ion-card-content>
         <ion-item>
@@ -40,21 +39,23 @@
           </ion-col>
         </ion-row>
       </ion-card-content>
-      
       <ion-label>
         <br>
-        <a [routerLink]="['/correo']">Recuperar Contraseña</a>
+        <a class="a-color" [routerLink]="['/correo']">Recuperar Contraseña</a>
       </ion-label>
     </ion-card>
   </div>
-  
 </ion-content>
+
 
 
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-title class="ion-text-left ion-text">
-
+      <ion-tab-button tab="correo" routerLink="/correo" routerLinkActive="active-tab">
+        <ion-icon name="mail-unread-outline"></ion-icon>
+        Recuperar Contraseña
+      </ion-tab-button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

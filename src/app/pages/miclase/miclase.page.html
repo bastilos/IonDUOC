@@ -6,9 +6,13 @@
   </ion-toolbar>
 </ion-header>
 
+<div class="body-background"></div>
 <ion-content *ngIf="asistencia">
+  <div class="background-image"></div>
   <br>
-  <h2 class="ion-text-center"> Datos de la asignatura </h2>
+  <div class="title-card">
+    <h2 class="ion-text-center"> Datos de la asignatura </h2>
+  </div>
   <ion-card class="center-card">
     <ion-card-header>
       <ion-card-title class="card-title-color">{{ asistencia.nombreAsignatura }}</ion-card-title>

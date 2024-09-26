@@ -7,12 +7,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding-horizontal background-image">
+  <br>
+  <ion-title class="ion-text-center">
+    <h2 class="title-card">Sistema de Asistencia DUOC</h2>
+  </ion-title>
   <ion-card class="ion-text-center ion-padding-vertical">
-    <ion-card-title>
-      <ion-label>
-        <h2>Sistema de Asistencia DUOC</h2>
-      </ion-label>
-    </ion-card-title>
 
     <ion-card-content>
       <h2>Recuperar contraseña</h2>
@@ -28,13 +27,22 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
+  <ion-label>
+    <br>
+    <div class="ion-text-center">
+      <a class="label-color" [routerLink]="['/login']">Iniciar Sesión</a>
+    </div>
+  </ion-label>
 </ion-content>
 
 
 <ion-footer>
   <ion-toolbar color="primary">
-    <ion-title class="ion-text-left ion-text">
-
+    <ion-title #titulo class="ion-text-center ion-text-center">
+      <ion-tab-button tab="login" routerLink="/login" routerLinkActive="active-tab">
+        <ion-icon name="log-in-outline"></ion-icon>
+        Iniciar Sesión
+      </ion-tab-button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

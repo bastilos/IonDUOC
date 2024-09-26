@@ -1,19 +1,19 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title class="ion-text-left">
+    <ion-title #titulo class="front-size-19">
       <img class="logo-header" src="../assets/img/logo-duoc.png" alt="Duoc UC">
     </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding-horizontal background-image">
-  <ion-card class="ion-text-center ion-padding-vertical">
-    <ion-card-title>
-      <h2>Sistema de Asistencia DUOC</h2>
-    </ion-card-title>
+  <br>
+  <ion-title class="ion-text-center">
+    <h2 class="title-card">Sistema de Asistencia DUOC</h2>
+  </ion-title>
 
-    <!-- Contenedor para la imagen y el mensaje -->
+  <ion-card class="ion-text-center ion-padding-vertical">
     <div class="custom-image-container">
-      <img src="../assets/img/2.jpg" alt="Imagen personalizada" class="custom-image">
+      <img src="../assets/img/2.jpg" alt="Incorrecta" class="custom-image">
       <p class="overlay-text">{{ mensaje }}</p>
     </div>
   </ion-card>
@@ -22,7 +22,10 @@
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-title class="ion-text-left">
-      <!-- Contenido adicional si es necesario -->
+      <ion-tab-button tab="login" routerLink="/login" routerLinkActive="active-tab">
+        <ion-icon name="log-in-outline"></ion-icon>
+        Iniciar Sesión
+      </ion-tab-button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

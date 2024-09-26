@@ -12,7 +12,9 @@ ion-item{
 }
 
 ion-card {
-  --background: #fafafa; 
+  background-color: rgba(189, 198, 1, 0.7); //#BDC601; 
+  //background-color: rgba(102, 102, 102, 0.5); //#666666
+  //--background: #fafafa; 
   color: #000000; 
   width: 90%;
   height: 60%;
@@ -26,9 +28,7 @@ ion-card-title,
 ion-card-content,
 ion-label,
 p,
-h2 {
-  color: #000000; 
-}
+
 
 ion-item ion-input {
   --background: ; 
@@ -61,4 +61,16 @@ ion-input {
     background-size: 200%;
     background-position: center -210px;
   }
+}
+
+.title-card {
+  background-color: rgba(102, 102, 102, 0.5); //#666666 semi transparentado
+  margin: 10px;
+  border-radius: 20px;
+  color: white;
+}
+
+.a-color {
+  color: black;
+  //color: white;
 }

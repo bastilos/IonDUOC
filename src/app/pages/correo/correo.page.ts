@@ -35,7 +35,9 @@ export class CorreoPage implements OnInit {
         animation.play();
       }
     }
-  ngOnInit() { }
+  ngOnInit() {
+
+   }
 
   public ingresarPaginaValidarRespuestaSecreta(): void {
     const usuarioEncontrado = Usuario.buscarUsuarioPorCorreo(this.correo);
