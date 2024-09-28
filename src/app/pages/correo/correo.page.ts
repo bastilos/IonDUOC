@@ -45,6 +45,9 @@ export class CorreoPage implements OnInit {
     const usuarioEncontrado = Usuario.buscarUsuarioPorCorreo(this.correo);
     if (!usuarioEncontrado) {
       const navigationExtras: NavigationExtras = {
+        state: {
+          mensaje: '¡Lo sentimos Pero los datos ingresados no son correctos!'
+        }
       };
       this.router.navigate(['/incorrecto'], navigationExtras);
     } else {
@@ -58,7 +61,7 @@ export class CorreoPage implements OnInit {
     }
   }
 
-//  --async mostrarMensaje(mensaje: string, duracion?: number) {
+//  async mostrarMensaje(mensaje: string, duracion?: number) {
 //    const toast = await this.toastController.create({
 //        message: mensaje,
 //        duration: duracion? duracion: 2000,
