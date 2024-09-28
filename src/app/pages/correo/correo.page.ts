@@ -17,6 +17,8 @@ export class CorreoPage implements OnInit {
 
 
   public correo: string = '';
+  public usuario: any;
+  public respuesta: string='';
 
   constructor(private router: Router,
     private loadingController: LoadingController,
@@ -42,7 +44,9 @@ export class CorreoPage implements OnInit {
   public ingresarPaginaValidarRespuestaSecreta(): void {
     const usuarioEncontrado = Usuario.buscarUsuarioPorCorreo(this.correo);
     if (!usuarioEncontrado) {
-      this.mostrarMensaje('EL CORREO NO EXISTE DENTRO DE LAS CUENTAS VALIDAS DEL SISTEMA');
+      const navigationExtras: NavigationExtras = {
+      };
+      this.router.navigate(['/incorrecto'], navigationExtras);
     } else {
       console.log('Usuario encontrado:', usuarioEncontrado);
       const navigationExtras: NavigationExtras = {
@@ -54,13 +58,13 @@ export class CorreoPage implements OnInit {
     }
   }
 
-  async mostrarMensaje(mensaje: string, duracion?: number) {
-    const toast = await this.toastController.create({
-        message: mensaje,
-        duration: duracion? duracion: 2000,
-        position: 'top'
-      });
-    toast.present();
-  }
+//  --async mostrarMensaje(mensaje: string, duracion?: number) {
+//    const toast = await this.toastController.create({
+//        message: mensaje,
+//        duration: duracion? duracion: 2000,
+//        position: 'top'
+//      });
+//    toast.present();
+//  }
 }
  

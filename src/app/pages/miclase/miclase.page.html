@@ -7,26 +7,38 @@
 </ion-header>
 
 <div class="body-background"></div>
-<ion-content *ngIf="asistencia">
+<ion-content>
   <div class="background-image"></div>
   <br>
   <div class="title-card">
-    <h2 class="ion-text-center"> Datos de la asignatura </h2>
+    <h2 class="ion-text-center">Datos de la asignatura</h2>
   </div>
-  <ion-card class="center-card">
-    <ion-card-header>
-      <ion-card-title class="card-title-color">{{ asistencia.nombreAsignatura }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content class="center-content">
-      <p>Profesor: {{ asistencia.nombreProfesor }}</p>
-      <p>Bloque Inicio: {{ asistencia.bloqueInicio }}</p>
-      <p>Bloque Termino: {{ asistencia.bloqueTermino }}</p>
-      <p>Sección: {{ asistencia.seccion }}</p>
-      <p>Sede: {{ asistencia.sede }}</p>
-      <p>Hora Inicio: {{ asistencia.horaInicio }}</p>
-      <p>Hora Fin: {{ asistencia.horaFin }}</p>
-    </ion-card-content>
-  </ion-card>
+  
+  <!-- Contenedor en formato de fila -->
+  <div class="row-container">
+    <ion-card class="center-card">
+      <ion-card-header>
+        <ion-card-title class="card-title-color">{{ asistencia?.nombreAsignatura || 'Asignatura no disponible' }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="center-content">
+        <p>Profesor: {{ asistencia?.nombreProfesor || 'No asignado' }}</p>
+        <p>Bloque Inicio: {{ asistencia?.bloqueInicio || 'No disponible' }}</p>
+        <p>Bloque Termino: {{ asistencia?.bloqueTermino || 'No disponible' }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="center-card">
+      <ion-card-header>
+        <ion-card-title class="card-title-color">Información Adicional</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="center-content">
+        <p>Sección: {{ asistencia?.seccion || 'No disponible' }}</p>
+        <p>Sede: {{ asistencia?.sede || 'No disponible' }}</p>
+        <p>Hora Inicio: {{ asistencia?.horaInicio || 'No disponible' }}</p>
+        <p>Hora Fin: {{ asistencia?.horaFin || 'No disponible' }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
 
 <!-- Comienza el Footer -->
@@ -50,4 +62,3 @@
     </ion-tabs>
   </ion-toolbar>
 </ion-footer>
-<!-- Termina el Footer -->
