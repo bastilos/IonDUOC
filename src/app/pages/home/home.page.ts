@@ -39,14 +39,17 @@ export class HomePage implements OnInit, AfterViewInit {
     private animationController: AnimationController,
     private asistenciaService: AsistenciaService // Inyecta el servicio
   ) {
+    const storedUser = localStorage.getItem('usuario');
+      if (storedUser) {
+        this.usuario = JSON.parse(storedUser);
+        this.userService.setUsuarioAutenticado(this.usuario);
+      }
     // Tu lógica para la navegación
     this.activeroute.queryParams.subscribe(params => {
-      const navigation = this.router.getCurrentNavigation();
-      if (navigation && navigation.extras.state) {
-        this.usuario = navigation.extras.state['usuario'];
+      const storedUser = localStorage.getItem('usuario');
+      if (storedUser) {
+        this.usuario = JSON.parse(storedUser);
         this.userService.setUsuarioAutenticado(this.usuario);
-      } else {
-        this.router.navigate(['/login']);
       }
     });
   }
@@ -65,6 +68,13 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    const navigation = this.router.getCurrentNavigation();
+      if (navigation && navigation.extras.state) {
+        this.usuario = navigation.extras.state['usuario'];
+        this.userService.setUsuarioAutenticado(this.usuario);
+      } else {
+        this.router.navigate(['/login']);
+      }
     this.comenzarEscaneoQR();
   }
 

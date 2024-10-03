@@ -61,6 +61,7 @@ export class Usuario {
     const usuario = this.listaUsuariosValidos().find(
       usu => usu.correo === correo && usu.password === password);
     if (usuario !== undefined) {
+      sessionStorage.setItem('usuario', JSON.stringify(usuario));
       return usuario;
     } else {
       return null;
