@@ -1,0 +1,32 @@
+<div class="foro-container">
+  <h2>Ingresa tu publicación</h2>
+  <form (submit)="guardarPublicacion()">
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input [(ngModel)]="publicacion.titulo" name="titulo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Cuerpo</ion-label>
+      <ion-textarea [(ngModel)]="publicacion.cuerpo" name="cuerpo"></ion-textarea>
+    </ion-item>
+    <ion-button expand="full" color="primary" (click)="guardarPublicacion()">Guardar</ion-button>
+    <ion-button expand="full" color="light" (click)="limpiarFormulario()">Limpiar</ion-button>
+  </form>
+
+  <h2>Publicaciones recientes</h2>
+  <div *ngFor="let pub of publicaciones">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>(Publicación #{{pub.id}}) {{pub.autor}}</ion-card-subtitle>
+        <ion-card-title>{{pub.titulo}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{pub.cuerpo}}
+      </ion-card-content>
+      <ion-footer>
+        <ion-button color="secondary" (click)="editarPublicacion(pub)">Editar</ion-button>
+        <ion-button color="danger" (click)="eliminarPublicacion(pub.id)">Eliminar</ion-button>
+      </ion-footer>
+    </ion-card>
+  </div>
+</div>
