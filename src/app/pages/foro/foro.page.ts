@@ -10,10 +10,10 @@ interface Publicacion {
 
 @Component({
   selector: 'app-foro',
-  templateUrl: './foro.component.html',
-  styleUrls: ['./foro.component.scss'],
+  templateUrl: './foro.page.html',
+  styleUrls: ['./foro.page.scss'],
 })
-export class ForoComponent implements OnInit {
+export class ForoPage implements OnInit {
   publicacion: Publicacion = { titulo: '', cuerpo: '', autor: 'Usuario actual' };
   publicaciones: Publicacion[] = [];
   private apiUrl = 'http://localhost:3000/publicaciones';
@@ -58,5 +58,9 @@ export class ForoComponent implements OnInit {
     this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {
       this.obtenerPublicaciones();
     });
+  }
+
+  getIdentificadorItemPublicacion(index: number, publicacion: Publicacion): number {
+    return publicacion.id || index; // Devuelve el id o el índice como último recurso
   }
 }

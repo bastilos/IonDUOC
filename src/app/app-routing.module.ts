@@ -40,7 +40,21 @@ const routes: Routes = [
   {
     path: 'miclase',
     loadChildren: () => import('./pages/miclase/miclase.module').then( m => m.MiclasePageModule)
+  },
+  {
+    path: 'header',
+    loadChildren: () => import('./pages/header/header.module').then( m => m.HeaderPageModule)
+  },
+  {
+    path: 'footer',
+    loadChildren: () => import('./pages/footer/footer.module').then( m => m.FooterPageModule)
+  },
+
+  {
+    path: 'foro',
+    loadChildren: () => import('./pages/foro/foro.module').then( m => m.ForoPageModule)
   }
+
 
 
 ];
